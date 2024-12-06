@@ -1,4 +1,4 @@
-Credentials for the exported Users table:
+Credentials for the Users table:
 1. email: admin@cms.com
    password: admin
 
