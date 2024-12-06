@@ -1,4 +1,4 @@
-Credentials for the Users table:
+Credentials for the Users table provided in submission:
 1. email: admin@cms.com
    password: admin
 
