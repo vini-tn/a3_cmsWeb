@@ -1,7 +1,5 @@
 <x-layout>
-    <h1 class="title">Welcome {{ auth()->user()->username }},
-        you have {{ $posts->total() }} posts
-    </h1>
+    <h1 class="title">Welcome {{ auth()->user()->username }}, you have {{ $posts->total() }} posts </h1>
 
     {{-- create post form --}}
 
@@ -70,7 +68,7 @@
         <x-postCard :post="$post">
             {{-- Update post --}}
             <a href="{{ route('posts.edit', $post) }}"
-               class="bg-yellow-500 text-white px-2 py-1 text-xs rounded-md">Update</a>
+               class="bg-yellow-500 text-white px-2 py-1 text-xs rounded-md">Edit</a>
             
             {{-- Delete post --}}
             <form action="{{ route('posts.destroy', $post) }}" method="post">

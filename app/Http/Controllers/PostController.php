@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -64,14 +65,14 @@ class PostController extends Controller implements HasMiddleware
 
         //create a post
 
-        Auth::user()->posts()->create([
+        $post = Auth::user()->posts()->create([
             'title'=>$request->title,
             'body'=>$request->body,
             'image'=>$path
         ]);
 
         //redirect to dashboard
-       return back()->with('success',"Your post was created");
+       return back()->with('success',"Post: {$post->title}, was created!");
     }
 
     /**
@@ -104,8 +105,6 @@ class PostController extends Controller implements HasMiddleware
 
         ]);
 
-     
-
         if ($request->hasFile('image')) {
 
             // Delete the old image from storage if it exists
@@ -133,10 +132,13 @@ class PostController extends Controller implements HasMiddleware
         ]);
 
 
-      
-
-        // redirect back to dashboard
-        return redirect()->route('dashboard')->with('success','Your post was updated!');
+        if (auth()->user()->isAdmin) {
+            return redirect()->route('posts.index')->with('success', "Post: {$post->title}, was updated!");
+        } else
+        {
+            // redirect back to dashboard
+            return redirect()->route('dashboard')->with('success', "Post: {$post->title}, was updated!");
+        }
     }
 
     /**
@@ -144,7 +146,6 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
-
 
         // Authorizing the action
         Gate::authorize('modify',$post);
@@ -156,9 +157,14 @@ class PostController extends Controller implements HasMiddleware
         // delete the post
         $post->delete();
 
-        // redirect back to dashboard
-
-        return back()->with('delete','Your post was deleted!');
+        if (auth()->user()->isAdmin) {
+            return redirect()->route('posts.index')->with('delete',"Post: {$post->title}, was deleted!");
+        } else
+        {
+            // redirect back to dashboard
+            return back()->with('delete',"Post: {$post->title}, was deleted!");
+        }
+       
 
     }
 }

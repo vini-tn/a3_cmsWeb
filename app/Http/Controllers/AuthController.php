@@ -12,7 +12,7 @@ class AuthController extends Controller
      
         // Validate
         $fields = $request ->validate([
-            'username' =>['required','max:255'],
+            'username' =>['required','max:255', 'unique:users'],
             'email' =>['required','max:255', 'email','unique:users'],
             'password' =>['required','min:5', 'confirmed'],
         ]);
