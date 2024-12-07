@@ -14,6 +14,8 @@ class PostFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    //This function creates dummy posts for each user. It also generates a title and body (description)
     public function definition(): array
     {
         return [
@@ -21,8 +23,6 @@ class PostFactory extends Factory
                 'user_id' =>1,
                 'title' =>fake()->sentence(),
                 'body'=>fake()->paragraph(20),
-
-        
         ];
     }
 }

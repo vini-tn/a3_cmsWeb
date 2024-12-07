@@ -6,17 +6,21 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+//routes of all blade views
+
 Route::redirect('/', 'posts');
 
 Route::resource('posts',PostController::class);
 
 Route::get('/{user}/posts',[DashboardController::class,'userPosts'])->name('posts.user');
 
+//only accessable by logged in user
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+//all users can access
 Route::middleware('guest')->group(function(){
     Route::view('/register', 'auth.register')->name('register');
     Route::post('/register', [AuthController::class, 'register']);

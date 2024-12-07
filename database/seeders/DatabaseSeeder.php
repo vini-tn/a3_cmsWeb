@@ -12,10 +12,10 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+
+    //When run from terminal, this function creates 15 posts using the PostFactory.
     public function run(): void
     {
-        // User::factory(10)->create();
-
         Post::factory(15)->create();
-}
+    }
 }

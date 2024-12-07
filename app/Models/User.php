@@ -18,6 +18,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    //Structure of users to use in controllers
     protected $fillable = [
         'username',
         'email',
@@ -47,14 +49,16 @@ class User extends Authenticatable
         ];
     }
 
+    //This function is to be able to return all the posts of the user. Used in Dashboard controller
     public function posts():HasMany
     {
         return $this->hasMany(Post::class);
     }
 
+    //This function is to be able to check for admin status of user
     public function isAdmin()
-{
-    return $this->isAdmin;
-}
+    {
+        return $this->isAdmin;
+    }
 
 }
